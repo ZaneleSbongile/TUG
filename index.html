@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Unseen Generation App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav>
+    <div class="logo">TUG</div>
+    <div class="nav-links">
+      <a href="#">🏠 Home</a>
+      <a href="#">💬 Chat</a>
+      <a href="#">🔔 Notifications</a>
+      <a href="#">🌟 TUG</a>
+      <a href="#">⚙️ Settings</a>
+    </div>
+  </nav>
+
+  <!-- ===== Feed Container ===== -->
+  <div class="container">
+    <div class="feed">
+      <!-- Create Post Box -->
+      <div class="post-box">
+        <textarea id="postInput" rows="3" placeholder="Share your Unseen Generation story..."></textarea>
+        <button onclick="addPost()">Post</button>
+      </div>
+
+      <!-- Sample Post -->
+      <div class="post">
+        <p><strong>Anele:</strong> Today I felt unseen at school, but I reminded myself I am enough and shared love with someone who needed it 💛</p>
+        <div class="reactions">
+          <button class="reaction-btn">❤️ Motivate</button>
+          <button class="reaction-btn">🌟 Empower</button>
+          <button class="reaction-btn">🤝 Relate</button>
+          <button class="reaction-btn">👀 See You</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    function addPost() {
+      const postInput = document.getElementById('postInput');
+      const postText = postInput.value.trim();
+
+      if (postText === "") {
+        alert("Please write something before posting!");
+        return;
+      }
+
+      const feed = document.querySelector('.feed');
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+      postDiv.innerHTML = `
+        <p><strong>You:</strong> ${postText}</p>
+        <div class="reactions">
+          <button class="reaction-btn">❤️ Motivate</button>
+          <button class="reaction-btn">🌟 Empower</button>
+          <button class="reaction-btn">🤝 Relate</button>
+          <button class="reaction-btn">👀 See You</button>
+        </div>
+      `;
+
+      feed.appendChild(postDiv);
+      postInput.value = "";
+    }
+  </script>
+
+</body>
+</html>
