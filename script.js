@@ -1,30 +1,3 @@
-const postInput = document.getElementById("postInput");
-const postBtn = document.getElementById("postBtn");
-const feed = document.getElementById("feed");
-
-let posts = [
-  {id:1, username:'Naledi', text:'Today I answered a question in class', self:false, likes:2},
-  {id:2, username:'You', text:'I feel empowered!', self:true, likes:1}
-];
-
-// Enable/disable POST button
-postInput.addEventListener('input', () => {
-  postBtn.disabled = postInput.value.trim() === '';
-});
-
-// Create new post
-postBtn.addEventListener('click', () => {
-  const text = postInput.value.trim();
-  if(text){
-    const newPost = {id: Date.now(), username:'You', text, self:true, likes:0};
-    posts.unshift(newPost);
-    renderFeed();
-    postInput.value = '';
-    postBtn.disabled = true;
-  }
-});
-
-// Render feed
 function renderFeed(){
   feed.innerHTML = '';
   posts.forEach(post => {
@@ -37,7 +10,23 @@ function renderFeed(){
         <span class="like-btn">❤️ ${post.likes}</span>
         <span>${new Date(post.id).toLocaleTimeString()}</span>
       </div>
+      <div class="menu-container">
+        <button class="menu-btn">⋮</button>
+        <div class="menu-options">
+          ${post.self ? `
+            <button onclick="alert('Edit post ${post.id}')">Edit</button>
+            <button onclick="alert('Delete post ${post.id}')">Delete</button>
+            <button onclick="alert('Pin post ${post.id}')">Pin</button>
+            <button onclick="alert('Share post ${post.id}')">Share to...</button>
+          ` : `
+            <button onclick="alert('Do not want to see this ${post.id}')">Do not want to see this</button>
+            <button onclick="alert('Report post ${post.id}')">Report</button>
+            <button onclick="alert('Reply privately to post ${post.id}')">Reply privately</button>
+          `}
+        </div>
+      </div>
     `;
+
     // Like button animation
     const likeBtn = div.querySelector('.like-btn');
     likeBtn.addEventListener('click', () => {
@@ -46,19 +35,23 @@ function renderFeed(){
       setTimeout(()=>likeBtn.classList.remove('heart-pop'),300);
       likeBtn.textContent = `❤️ ${post.likes}`;
     });
+
+    // Menu toggle
+    const menuBtn = div.querySelector('.menu-btn');
+    const menuOptions = div.querySelector('.menu-options');
+    menuBtn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      document.querySelectorAll('.menu-options').forEach(m=>{
+        if(m!==menuOptions) m.style.display='none';
+      });
+      menuOptions.style.display = menuOptions.style.display==='block' ? 'none' : 'block';
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', ()=>{
+      menuOptions.style.display='none';
+    });
+
     feed.appendChild(div);
   });
 }
-
-// Focus composer (middle nav button)
-function focusComposer(){
-  postInput.focus();
-}
-
-// Logo click
-function goHome(){
-  alert('Going Home!');
-}
-
-// Initial render
-renderFeed();
