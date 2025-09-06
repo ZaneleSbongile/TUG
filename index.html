@@ -1,107 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Unseen Generation</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The UNSEEN Generation</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo" onclick="toggleNav()">🌟 The Unseen Generation</div>
-    <div class="create-post">
-      <textarea id="postInput" placeholder="Speak up!"></textarea>
-      <button onclick="addPost()">Post</button>
-    </div>
+<div class="app">
+  <!-- Header -->
+  <header class="header">
+    <div class="logo" onclick="goHome()" aria-label="Go to home">👁️</div>
+    <h1 class="title">The UNSEEN Generation</h1>
+    <div class="profile-icon">⚙️</div>
   </header>
 
-  <!-- NAVIGATION MENU -->
-  <nav id="sidebar" class="hidden">
-    <ul>
-      <li title="Home">⬤</li>
-      <li title="Chat">⬤</li>
-      <li title="Notifications">⬤</li>
-      <li title="TUG">⬤</li>
-      <li title="Settings">⬤</li>
-    </ul>
-  </nav>
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Post Composer -->
+    <div class="post-composer">
+      <input type="text" id="postInput" placeholder="Speak up..." maxlength="280">
+      <button id="postBtn" disabled>POST</button>
+    </div>
 
-  <!-- MAIN LAYOUT -->
-  <main>
-    <section class="feed others-feed">
-      <h2>Others</h2>
-    </section>
-
-    <section class="feed my-feed">
-      <h2>My Posts</h2>
-    </section>
+    <!-- Feed -->
+    <div id="feed" class="feed">
+      <!-- Posts will appear here -->
+    </div>
   </main>
 
-  <script>
-    function toggleNav() {
-      document.getElementById("sidebar").classList.toggle("hidden");
-    }
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-dot active" onclick="alert('Home clicked')">🏠</button>
+    <button class="nav-dot" onclick="alert('Chat clicked')">💬</button>
+    <button class="nav-dot special" onclick="focusComposer()">➕</button>
+    <button class="nav-dot" onclick="alert('Notifications clicked')">🔔</button>
+    <button class="nav-dot" onclick="alert('Profile clicked')">👤</button>
+  </nav>
+</div>
 
-    function addPost() {
-      const postInput = document.getElementById("postInput");
-      const postText = postInput.value.trim();
-
-      if (postText === "") {
-        alert("Please write something before posting!");
-        return;
-      }
-
-      const myFeed = document.querySelector(".my-feed");
-      const postDiv = document.createElement("div");
-      postDiv.className = "post";
-      postDiv.innerHTML = `
-        <div class="post-header">
-          <div class="avatar">👤</div>
-          <strong>You</strong>
-          <div class="post-menu">
-            <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
-            <ul class="menu-options hidden">
-              <li onclick="editPost(this)">✏️ Edit</li>
-              <li onclick="deletePost(this)">🗑️ Delete</li>
-              <li onclick="pinPost(this)">📌 Pin to profile</li>
-            </ul>
-          </div>
-        </div>
-        <div class="bubble">${postText}</div>
-      `;
-
-      myFeed.prepend(postDiv);
-      postInput.value = "";
-    }
-
-    function toggleMenu(button) {
-      const menu = button.nextElementSibling;
-      menu.classList.toggle("hidden");
-    }
-
-    function editPost(option) {
-      const postDiv = option.closest('.post');
-      const bubble = postDiv.querySelector('.bubble');
-      const newText = prompt("Edit your post:", bubble.textContent);
-      if (newText !== null && newText.trim() !== "") {
-        bubble.textContent = newText;
-      }
-      option.parentElement.classList.add("hidden");
-    }
-
-    function deletePost(option) {
-      const postDiv = option.closest('.post');
-      postDiv.remove();
-    }
-
-    function pinPost(option) {
-      const postDiv = option.closest('.post');
-      const feed = document.querySelector(".my-feed");
-      feed.prepend(postDiv);
-      option.parentElement.classList.add("hidden");
-      alert("Post pinned to your profile!");
-    }
-  </script>
+<script src="script.js"></script>
 </body>
 </html>
