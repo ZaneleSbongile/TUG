@@ -3,47 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Unseen Generation App</title>
+  <title>The Unseen Generation</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>The Unseen Generation</h1>
+  </header>
 
-  <!-- ===== Navbar ===== -->
-  <nav>
-    <div class="logo">TUG</div>
-    <div class="nav-links">
-      <a href="#">🏠 Home</a>
-      <a href="#">💬 Chat</a>
-      <a href="#">🔔 Notifications</a>
-      <a href="#">🌟 TUG</a>
-      <a href="#">⚙️ Settings</a>
-    </div>
-  </nav>
+  <main>
+    <section class="create-post">
+      <textarea id="postInput" placeholder="Share your story..."></textarea>
+      <button onclick="addPost()">Post</button>
+    </section>
 
-  <!-- ===== Feed Container ===== -->
-  <div class="container">
-    <div class="feed">
-      <!-- Create Post Box -->
-      <div class="post-box">
-        <textarea id="postInput" rows="3" placeholder="Share your Unseen Generation story..."></textarea>
-        <button onclick="addPost()">Post</button>
-      </div>
+    <section class="feed"></section>
+  </main>
 
-      <!-- Sample Post -->
-      <div class="post">
-        <p><strong>Anele:</strong> Today I felt unseen at school, but I reminded myself I am enough and shared love with someone who needed it 💛</p>
-        <div class="reactions">
-          <button class="reaction-btn">❤️ Motivate</button>
-          <button class="reaction-btn">🌟 Empower</button>
-          <button class="reaction-btn">🤝 Relate</button>
-          <button class="reaction-btn">👀 See You</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ===== JavaScript ===== -->
   <script>
     function addPost() {
       const postInput = document.getElementById('postInput');
@@ -58,7 +34,18 @@
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
       postDiv.innerHTML = `
-        <p><strong>You:</strong> ${postText}</p>
+        <div class="post-header">
+          <strong>You</strong>
+          <div class="post-menu">
+            <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
+            <ul class="menu-options hidden">
+              <li onclick="editPost(this)">✏️ Edit</li>
+              <li onclick="deletePost(this)">🗑️ Delete</li>
+              <li onclick="pinPost(this)">📌 Pin to profile</li>
+            </ul>
+          </div>
+        </div>
+        <p class="post-text">${postText}</p>
         <div class="reactions">
           <button class="reaction-btn">❤️ Motivate</button>
           <button class="reaction-btn">🌟 Empower</button>
@@ -67,10 +54,37 @@
         </div>
       `;
 
-      feed.appendChild(postDiv);
+      feed.prepend(postDiv);
       postInput.value = "";
     }
-  </script>
 
+    function toggleMenu(button) {
+      const menu = button.nextElementSibling;
+      menu.classList.toggle("hidden");
+    }
+
+    function editPost(option) {
+      const postDiv = option.closest('.post');
+      const postTextEl = postDiv.querySelector('.post-text');
+      const newText = prompt("Edit your post:", postTextEl.textContent);
+      if (newText !== null && newText.trim() !== "") {
+        postTextEl.textContent = newText;
+      }
+      option.parentElement.classList.add("hidden");
+    }
+
+    function deletePost(option) {
+      const postDiv = option.closest('.post');
+      postDiv.remove();
+    }
+
+    function pinPost(option) {
+      const postDiv = option.closest('.post');
+      const feed = document.querySelector('.feed');
+      feed.prepend(postDiv);
+      option.parentElement.classList.add("hidden");
+      alert("Post pinned to top of your profile!");
+    }
+  </script>
 </body>
 </html>
