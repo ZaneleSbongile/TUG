@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUG | Profile</title>
+  <!-- Link shared CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>TUG</h1>
+    <nav>
+      <ul>
+        <!-- Navigation links -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="profile.html" class="active">Profile</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="requests.html">Requests</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN PROFILE CONTENT -->
+  <main>
+    <h2>Your Profile</h2>
+
+    <!-- User Info Card -->
+    <div class="profile-card">
+      <h3>Username: Anele</h3>
+      <p><strong>Email:</strong> anele@example.com</p>
+      <p><strong>Mobile:</strong> +27 123 456 7890</p>
+      <p><strong>Bio:</strong> Empowering the unseen generation ✨</p>
+      <button>Edit Profile</button>
+    </div>
+
+    <!-- User Posts -->
+    <div class="feed">
+      <h3>Your Posts</h3>
+      <div class="post">
+        <div class="menu">⋮</div>
+        <div class="content">
+          <p>Sharing my story today helped someone feel seen ❤️</p>
+        </div>
+        <div class="reactions">
+          <button class="reaction-btn">Motivating</button>
+          <button class="reaction-btn">Inspiring</button>
+          <button class="reaction-btn">Relatable</button>
+          <button class="reaction-btn">I See You</button>
+        </div>
+        <div class="comments">
+          <p><strong>Zee Thato:</strong> So proud of you! ✨</p>
+        </div>
+      </div>
+      <div class="post">
+        <div class="menu">⋮</div>
+        <div class="content">
+          <p>Feeling grateful for my support system today 💛</p>
+        </div>
+        <div class="reactions">
+          <button class="reaction-btn">Motivating</button>
+          <button class="reaction-btn">Inspiring</button>
+          <button class="reaction-btn">Relatable</button>
+          <button class="reaction-btn">I See You</button>
+        </div>
+        <div class="comments">
+          <p><strong>Zee Thato:</strong> This is beautiful 💖</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Link shared JS -->
+  <script src="script.js"></script>
+</body>
+</html>
