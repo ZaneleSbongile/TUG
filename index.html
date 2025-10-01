@@ -1,44 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The UNSEEN Generation</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUG | Home</title>
+  <!-- Link shared CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
-  <!-- Header -->
-  <header class="header">
-    <div class="logo" onclick="goHome()" aria-label="Go to home">👁️</div>
-    <h1 class="title">The UNSEEN Generation</h1>
-    <div class="profile-icon">⚙️</div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>TUG</h1>
+    <nav>
+      <ul>
+        <!-- Navigation links to all pages -->
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="requests.html">Requests</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Main Content -->
-  <main class="main">
-    <!-- Post Composer -->
-    <div class="post-composer">
-      <input type="text" id="postInput" placeholder="Speak up..." maxlength="280">
-      <button id="postBtn" disabled>POST</button>
+  <!-- MAIN FEED -->
+  <main>
+    <h2>Home Feed</h2>
+
+    <!-- Example Post -->
+    <div class="post">
+      <!-- 3-dots menu for post options -->
+      <div class="menu">⋮</div>
+      <div class="content">
+        <strong>Zee Thato</strong>
+        <p>Today I felt truly seen when someone complimented my artwork ❤️</p>
+      </div>
+      <!-- Reaction buttons -->
+      <div class="reactions">
+        <button class="reaction-btn">Motivating</button>
+        <button class="reaction-btn">Inspiring</button>
+        <button class="reaction-btn">Relatable</button>
+        <button class="reaction-btn">I See You</button>
+      </div>
+      <!-- Example comments -->
+      <div class="comments">
+        <p><strong>Anele:</strong> This is so inspiring ✨</p>
+      </div>
     </div>
 
-    <!-- Feed -->
-    <div id="feed" class="feed">
-      <!-- Posts will appear here -->
+    <div class="post">
+      <div class="menu">⋮</div>
+      <div class="content">
+        <strong>Anele</strong>
+        <p>Sharing my story helped me feel heard for the first time ✨</p>
+      </div>
+      <div class="reactions">
+        <button class="reaction-btn">Motivating</button>
+        <button class="reaction-btn">Inspiring</button>
+        <button class="reaction-btn">Relatable</button>
+        <button class="reaction-btn">I See You</button>
+      </div>
+      <div class="comments">
+        <p><strong>Zee Thato:</strong> Love this story ❤️</p>
+      </div>
     </div>
+
   </main>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <button class="nav-dot active" onclick="alert('Home clicked')">🏠</button>
-    <button class="nav-dot" onclick="alert('Chat clicked')">💬</button>
-    <button class="nav-dot special" onclick="focusComposer()">➕</button>
-    <button class="nav-dot" onclick="alert('Notifications clicked')">🔔</button>
-    <button class="nav-dot" onclick="alert('Profile clicked')">👤</button>
-  </nav>
-</div>
-
-<script src="script.js"></script>
+  <!-- Link shared JS -->
+  <script src="script.js"></script>
 </body>
 </html>
