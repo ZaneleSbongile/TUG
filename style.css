@@ -66,6 +66,34 @@ main {
   gap: 20px;
 }
 
+.create-post {
+  background: var(--white);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-post textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.create-post button {
+  align-self: flex-end;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  background: var(--orange);
+  color: var(--white);
+  cursor: pointer;
+}
+
 .post {
   background: var(--cream);
   padding: 15px;
