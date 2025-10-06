@@ -1,211 +1,88 @@
-/* ===================== COLORS ===================== */
-:root {
-  --orange: #FFA500;
-  --yellow: #FFD700;
-  --black: #000;
-  --white: #fff;
-  --cream: #FFFDD0;
-  --offwhite: #FAF9F6;
-  --gold: #FFD700;
-}
-
-/* ===================== BODY & HEADER ===================== */
+/* General Page Styles */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: var(--offwhite);
-  color: var(--black);
+    font-family: Arial, sans-serif;
+    background-color: #FFF8E7; /* light cream */
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-header {
-  background: var(--orange);
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Container */
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
 }
 
-header h1 {
-  color: var(--white);
-  font-size: 32px;
-  letter-spacing: 5px;
+/* Post Form */
+.post-form {
+    background-color: #FFEAC2; /* soft peach */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
+.post-form input, .post-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #FFD580;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
-nav ul li a {
-  text-decoration: none;
-  color: var(--white);
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
+.post-form button {
+    background-color: #FFA64D; /* gentle orange */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-nav ul li a:hover, nav ul li a.active {
-  background: var(--yellow);
-  color: var(--black);
+.post-form button:hover {
+    background-color: #FF8C1A;
 }
 
-/* ===================== MAIN CONTENT ===================== */
-main {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 10px;
-}
-
-/* ===================== POSTS / FEED ===================== */
-.feed {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.create-post {
-  background: var(--white);
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.create-post textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  resize: vertical;
-}
-
-.create-post button {
-  align-self: flex-end;
-  padding: 5px 15px;
-  border: none;
-  border-radius: 5px;
-  background: var(--orange);
-  color: var(--white);
-  cursor: pointer;
-}
-
+/* Post Cards */
 .post {
-  background: var(--cream);
-  padding: 15px;
-  border-radius: 10px;
-  position: relative;
+    background-color: #FFF5E0; /* light yellow */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-/* 3-Dots menu */
+/* Post Header */
+.post .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Three-dot menu */
 .post .menu {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /* Reactions */
 .reactions {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
+    margin-top: 10px;
 }
 
-.reaction-btn {
-  background: var(--yellow);
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+.reactions span {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 0.9em;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background-color: #FFD580; /* light gold */
+    color: #333;
 }
 
-/* Comments */
-.comments {
-  margin-top: 10px;
-  padding-left: 10px;
-  border-left: 2px solid var(--orange);
-}
-
-/* ===================== CHAT ===================== */
-.chat-box {
-  background: var(--white);
-  padding: 10px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.message {
-  padding: 5px 10px;
-  border-radius: 10px;
-  max-width: 70%;
-}
-
-.message.received {
-  background: var(--cream);
-  align-self: flex-start;
-}
-
-.message.sent {
-  background: var(--gold);
-  color: var(--white);
-  align-self: flex-end;
-}
-
-/* Chat input */
-.chat-input {
-  display: flex;
-  margin-top: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 5px;
-  margin-right: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.chat-input button {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
-  background: var(--orange);
-  color: var(--white);
-  cursor: pointer;
-}
-
-/* ===================== CHAT REQUESTS ===================== */
-.chat-request {
-  background: var(--white);
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
-}
-
-.chat-request button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.accept { background: var(--gold); color: var(--white);}
-.reject { background: #ccc; }
-.block { background: var(--black); color: var(--white); }
-
-/* ===================== PROFILE & SETTINGS ===================== */
-.profile-card, .settings-section {
-  background: var(--cream);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
+.reactions span:hover {
+    background-color: #FFC040;
 }
