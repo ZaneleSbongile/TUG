@@ -1,81 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TUG | Home</title>
-  <!-- Link shared CSS -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>TUG - The Unseen Generation</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>The Unseen Generation (TUG)</h1>
 
-  <!-- HEADER -->
-  <header>
-    <h1>TUG</h1>
-    <nav>
-      <ul>
-        <!-- Navigation links to all pages -->
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="notifications.html">Notifications</a></li>
-        <li><a href="chat.html">Chat</a></li>
-        <li><a href="requests.html">Requests</a></li>
-        <li><a href="settings.html">Settings</a></li>
-      </ul>
-    </nav>
-  </header>
+        <!-- Post Form -->
+        <div class="post-form">
+            <input type="text" id="name" placeholder="Your Name">
+            <input type="email" id="email" placeholder="Your Email (preferred)">
+            <textarea id="message" rows="4" placeholder="Write something..."></textarea>
+            <button id="postBtn">Post</button>
+        </div>
 
-  <!-- MAIN FEED -->
-  <main>
-    <h2>Home Feed</h2>
-
-    <!-- CREATE POST SECTION -->
-  <div class="create-post">
-    <textarea id="newPostContent" placeholder="Share something that made you feel seen..."></textarea>
-    <button id="postBtn">Post</button>
-  </div>
-
-    <!-- Example Post -->
-    <div class="post">
-      <!-- 3-dots menu for post options -->
-      <div class="menu">⋮</div>
-      <div class="content">
-        <strong>Zee Thato</strong>
-        <p>Today I felt truly seen when someone complimented my artwork ❤️</p>
-      </div>
-      <!-- Reaction buttons -->
-      <div class="reactions">
-        <button class="reaction-btn">Motivating</button>
-        <button class="reaction-btn">Inspiring</button>
-        <button class="reaction-btn">Relatable</button>
-        <button class="reaction-btn">I See You</button>
-      </div>
-      <!-- Example comments -->
-      <div class="comments">
-        <p><strong>Anele:</strong> This is so inspiring ✨</p>
-      </div>
+        <!-- Posts Feed -->
+        <div id="postsFeed"></div>
     </div>
 
-    <div class="post">
-      <div class="menu">⋮</div>
-      <div class="content">
-        <strong>Anele</strong>
-        <p>Sharing my story helped me feel heard for the first time ✨</p>
-      </div>
-      <div class="reactions">
-        <button class="reaction-btn">Motivating</button>
-        <button class="reaction-btn">Inspiring</button>
-        <button class="reaction-btn">Relatable</button>
-        <button class="reaction-btn">I See You</button>
-      </div>
-      <div class="comments">
-        <p><strong>Zee Thato:</strong> Love this story ❤️</p>
-      </div>
-    </div>
+<script>
+/* Admin password */
+const ADMIN_PASSWORD = "admin123"; // Change this later
+let isAdmin = false;
 
-  </main>
+/* Load posts from localStorage */
+let posts = JSON.parse(localStorage.getItem('tugPosts')) || [];
+renderPosts();
 
-  <!-- Link shared JS -->
-  <script src="script.js"></script>
+/* Post Button */
+document.getElementById('postBtn').addEventListener('click', () => {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if(!name || !email || !message){
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    const post = {
+        id: Date.now(),
+        name,
+        email,
+        message,
+        time: new Date().toLocaleString()
+    };
+
+    posts.unshift(post);
+    localStorage.setItem('tugPosts', JSON.stringify(posts));
+    renderPosts();
+
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('message').value = '';
+});
+
+/* Render Posts */
+function renderPosts() {
+    const feed = document.getElementById('postsFeed');
+    feed.innerHTML = '';
+
+    posts.forEach(post => {
+        const postDiv = document.createElement('div');
+        postDiv.className = 'post';
+        postDiv.dataset.id = post.id;
+
+        let menuOptions = '';
+        if(post.email === localStorage.getItem('userEmail')){
+            menuOptions = `<span class="menu" onclick="editPost(${post.id})">⋮</span>`;
+        } else {
+            menuOptions = `<span class="menu" onclick="reportPost(${post.id})">⋮</span>`;
+        }
+
+        if(isAdmin){
+            menuOptions += ` <span style="cursor:pointer;color:red;" onclick="adminDelete(${post.id})">[Delete as Admin]</span>`;
+        }
+
+        postDiv.innerHTML = `
+            <div class="post-header">
+                <strong>${post.name}</strong>
+                ${menuOptions}
+            </div>
+            <p>${post.message}</p>
+            <small>${post.time}</small>
+            <div class="reactions">
+                <span onclick="react('${post.id}','Motivating 💪')">Motivating 💪</span>
+                <span onclick="react('${post.id}','Inspiring ✨')">Inspiring ✨</span>
+                <span onclick="react('${post.id}','Relatable 💭')">Relatable 💭</span>
+                <span onclick="react('${post.id}','I See You 👀')">I See You 👀</span>
+            </div>
+        `;
+        feed.appendChild(postDiv);
+    });
+}
+
+/* Store user email for editing */
+document.getElementById('email').addEventListener('blur', ()=>{
+    localStorage.setItem('userEmail', document.getElementById('email').value.trim());
+});
+
+/* Edit Post */
+function editPost(id){
+    const post = posts.find(p => p.id == id);
+    const newMessage = prompt("Edit your post:", post.message);
+    if(newMessage !== null && newMessage.trim() !== ''){
+        post.message = newMessage.trim();
+        localStorage.setItem('tugPosts', JSON.stringify(posts));
+        renderPosts();
+    }
+}
+
+/* Report Post */
+function reportPost(id){
+    alert("This post has been reported. Thank you.");
+}
+
+/* Admin Delete */
+function adminDelete(id){
+    if(!isAdmin){
+        const pw = prompt("Enter admin password:");
+        if(pw !== ADMIN_PASSWORD){
+            alert("Wrong password.");
+            return;
+        }
+        isAdmin = true;
+    }
+    posts = posts.filter(p => p.id != id);
+    localStorage.setItem('tugPosts', JSON.stringify(posts));
+    renderPosts();
+}
+
+/* Reactions */
+function react(id, reaction){
+    alert(`You reacted: ${reaction}`);
+}
+</script>
 </body>
 </html>
